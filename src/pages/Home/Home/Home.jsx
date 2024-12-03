@@ -2,14 +2,14 @@ import React, { useState, useEffect } from "react";
 
 const Home = () => {
   const [difficulty, setDifficulty] = useState("Easy");
-  const [timeLimit, setTimeLimit] = useState(60); // Default: 1 minute
-  const [testStarted, setTestStarted] = useState(false);
-  const [inputText, setInputText] = useState("");
+  const [timeLimit, setTimeLimit] = useState(60); // Default time: 1 minute
   const [generatedText, setGeneratedText] = useState("");
+  const [inputText, setInputText] = useState("");
   const [timeLeft, setTimeLeft] = useState(0);
+  const [testStarted, setTestStarted] = useState(false);
   const [wpm, setWpm] = useState(0);
-  const [accuracy, setAccuracy] = useState(0);
-  const [resultsVisible, setResultsVisible] = useState(false);
+  const [accuracy, setAccuracy] = useState(100);
+  const [errors, setErrors] = useState(0);
 
   const sampleTexts = {
     Easy: [
@@ -35,41 +35,40 @@ const Home = () => {
     return texts[Math.floor(Math.random() * texts.length)];
   };
 
-  // Set random text on difficulty change
+  // Set the text whenever the difficulty changes
   useEffect(() => {
     setGeneratedText(getRandomText());
   }, [difficulty]);
 
-  // Timer
+  // Timer functionality
   useEffect(() => {
     let timer;
     if (testStarted && timeLeft > 0) {
-      timer = setTimeout(() => setTimeLeft(timeLeft - 1), 1000);
+      timer = setTimeout(() => setTimeLeft((prev) => prev - 1), 1000);
     } else if (timeLeft === 0 && testStarted) {
       finishTest();
     }
     return () => clearTimeout(timer);
   }, [testStarted, timeLeft]);
 
-  // Start Test
+  // Start the test
   const startTest = () => {
     setTestStarted(true);
-    setResultsVisible(false);
-    setTimeLeft(timeLimit);
     setInputText("");
+    setTimeLeft(timeLimit); // Use selected time limit
     setWpm(0);
-    setAccuracy(0);
+    setAccuracy(100);
+    setErrors(0);
     setGeneratedText(getRandomText());
   };
 
-  // Finish Test
+  // Finish the test
   const finishTest = () => {
     setTestStarted(false);
-    setResultsVisible(true);
     calculateResults();
   };
 
-  // Calculate WPM and Accuracy
+  // Calculate WPM and accuracy
   const calculateResults = () => {
     const wordsTyped = inputText.trim().split(" ").length;
     const correctChars = [...inputText].filter(
@@ -77,93 +76,122 @@ const Home = () => {
     ).length;
     const totalChars = generatedText.length;
 
-    setWpm(Math.round((wordsTyped / timeLimit) * 60));
-    setAccuracy(Math.round((correctChars / totalChars) * 100));
+    setWpm(Math.round((wordsTyped / (timeLimit / 60)) || 0));
+    setAccuracy(((correctChars / totalChars) * 100).toFixed(0));
+  };
+
+  // Handle user input
+  const handleInput = (e) => {
+    const value = e.target.value;
+    setInputText(value);
+
+    const correctChars = value.split("").filter((char, idx) => char === generatedText[idx]).length;
+    const totalTyped = value.length;
+
+    setErrors(totalTyped - correctChars);
+    setAccuracy(((correctChars / totalTyped) * 100).toFixed(0));
+
+    if (value.length === generatedText.length) finishTest();
+  };
+
+  // Reset the test
+  const resetTest = () => {
+    setTestStarted(false);
+    setInputText("");
+    setTimeLeft(0);
+    setWpm(0);
+    setAccuracy(100);
+    setErrors(0);
+    setGeneratedText(getRandomText());
   };
 
   return (
-    <div className="flex flex-col items-center min-h-screen py-8 text-white bg-gradient-to-r from-blue-800 via-purple-800 to-gray-900">
-      <h1 className="mb-8 text-5xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-yellow-400 via-red-500 to-pink-500 animate-bounce">
-        Typing Speed Test
-      </h1>
+    <div className="flex flex-col items-center min-h-screen py-8 text-white bg-gray-900">
+      <h1 className="mb-8 text-4xl font-bold">Typing Speed Test</h1>
 
-      {/* Settings */}
-      <div className="flex justify-center gap-4 mb-6">
-        <button
-          className={`px-4 py-2 rounded-md transition ${
-            difficulty === "Easy" ? "bg-blue-600" : "bg-gray-700"
-          } hover:bg-blue-700`}
-          onClick={() => setDifficulty("Easy")}
-        >
-          Easy
-        </button>
-        <button
-          className={`px-4 py-2 rounded-md transition ${
-            difficulty === "Medium" ? "bg-blue-600" : "bg-gray-700"
-          } hover:bg-blue-700`}
-          onClick={() => setDifficulty("Medium")}
-        >
-          Medium
-        </button>
-        <button
-          className={`px-4 py-2 rounded-md transition ${
-            difficulty === "Hard" ? "bg-blue-600" : "bg-gray-700"
-          } hover:bg-blue-700`}
-          onClick={() => setDifficulty("Hard")}
-        >
-          Hard
-        </button>
+      {/* Difficulty Dropdown */}
+      <div className="flex gap-4 mb-6">
         <select
+          value={difficulty}
+          onChange={(e) => setDifficulty(e.target.value)}
           className="px-4 py-2 text-white bg-gray-700 rounded-md"
+        >
+          <option value="Easy">Easy</option>
+          <option value="Medium">Medium</option>
+          <option value="Hard">Hard</option>
+        </select>
+
+        {/* Custom Time Dropdown */}
+        <select
           value={timeLimit}
           onChange={(e) => setTimeLimit(Number(e.target.value))}
+          className="px-4 py-2 text-white bg-gray-700 rounded-md"
         >
           <option value={30}>30 Seconds</option>
           <option value={60}>1 Minute</option>
+          <option value={90}>1 Minute 30 Seconds</option>
           <option value={120}>2 Minutes</option>
         </select>
       </div>
 
-      {/* Generated Text */}
-      <div className="w-full max-w-2xl px-4 py-4 mb-6 text-center bg-gray-800 border border-gray-700 rounded-md shadow-md animate-fade-in">
-        {generatedText}
+      {/* Timer and Stats */}
+      <div className="flex justify-between w-full max-w-md mb-6">
+        <div>
+          <p className="text-lg">Time Left</p>
+          <p className="text-2xl font-bold">{timeLeft}s</p>
+        </div>
+        <div>
+          <p className="text-lg">WPM</p>
+          <p className="text-2xl font-bold">{wpm}</p>
+        </div>
+        <div>
+          <p className="text-lg">Accuracy</p>
+          <p className="text-2xl font-bold">{accuracy}%</p>
+        </div>
       </div>
 
-      {/* Typing Area */}
-      {testStarted && (
-        <textarea
-          className="w-full h-24 max-w-2xl px-4 py-2 transition-all duration-200 bg-gray-800 border border-gray-700 rounded-md shadow-md resize-none focus:ring-4 focus:ring-blue-500"
-          placeholder="Start typing here..."
-          value={inputText}
-          onChange={(e) => setInputText(e.target.value)}
-        />
-      )}
-
-      {/* Timer and Start Button */}
-      <div className="flex items-center gap-4 mt-4">
-        <div className="text-xl font-semibold animate-pulse">
-          Time Left: {timeLeft}s
-        </div>
-        {!testStarted && (
-          <button
-            className="px-6 py-2 transition transform bg-blue-600 rounded-md shadow-lg hover:bg-blue-700 hover:scale-105"
-            onClick={startTest}
+      {/* Typing Text */}
+      <div className="w-full max-w-2xl p-4 mb-6 bg-gray-800 border border-blue-500 rounded-md">
+        {generatedText.split("").map((char, idx) => (
+          <span
+            key={idx}
+            className={`${
+              idx < inputText.length
+                ? inputText[idx] === char
+                  ? "text-green-400"
+                  : "bg-red-500 text-white"
+                : ""
+            }`}
           >
-            Start Test
-          </button>
-        )}
+            {char}
+          </span>
+        ))}
       </div>
 
-      {/* Results */}
-      {resultsVisible && (
-        <div className="w-full max-w-md p-6 mt-8 text-center bg-gray-800 rounded-md shadow-lg">
-          <h2 className="mb-4 text-3xl font-bold text-yellow-400">Results</h2>
-          <p className="text-lg">WPM: <span className="font-bold">{wpm}</span></p>
-          <p className="text-lg">
-            Accuracy: <span className="font-bold">{accuracy}%</span>
-          </p>
-        </div>
-      )}
+      {/* Input Area */}
+      <textarea
+        className="w-full h-24 max-w-2xl p-4 text-white bg-gray-800 rounded-md focus:outline-none"
+        placeholder="Start typing here..."
+        value={inputText}
+        onChange={handleInput}
+        disabled={!testStarted || timeLeft === 0}
+      ></textarea>
+
+      {/* Buttons */}
+      <div className="flex gap-4 mt-6">
+        <button
+          onClick={startTest}
+          className="px-6 py-2 text-white bg-blue-600 rounded-md hover:bg-blue-700"
+        >
+          Start
+        </button>
+        <button
+          onClick={resetTest}
+          className="px-6 py-2 text-white bg-orange-500 rounded-md hover:bg-orange-600"
+        >
+          Reset
+        </button>
+      </div>
     </div>
   );
 };
