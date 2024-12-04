@@ -114,7 +114,7 @@ const Home = () => {
         <select
           value={difficulty}
           onChange={(e) => setDifficulty(e.target.value)}
-          className="px-4 py-2 text-white bg-gray-700 rounded-md"
+          className="w-48 px-4 py-2 text-black rounded-2xl bg-white-700"
         >
           <option value="Easy">Easy</option>
           <option value="Medium">Medium</option>
@@ -125,7 +125,7 @@ const Home = () => {
         <select
           value={timeLimit}
           onChange={(e) => setTimeLimit(Number(e.target.value))}
-          className="px-4 py-2 text-white bg-gray-700 rounded-md"
+          className="w-48 px-4 py-2 text-black rounded-2xl bg-white-700"
         >
           <option value={30}>30 Seconds</option>
           <option value={60}>1 Minute</option>
