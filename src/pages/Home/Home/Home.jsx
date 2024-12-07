@@ -135,20 +135,20 @@ const Home = () => {
       </div>
 
       {/* Timer and Stats */}
-      <div className="flex justify-between w-full max-w-md mb-6">
-        <div>
-          <p className="text-lg">Time Left</p>
-          <p className="text-2xl font-bold">{timeLeft}s</p>
+      <div className="flex justify-around w-full max-w-md p-4 mb-6 bg-gray-700 rounded-lg shadow-lg">
+        <div className="text-center">
+          <p className="text-lg font-medium text-gray-300">Time Left</p>
+          <p className="text-3xl font-bold text-yellow-400">{timeLeft}s</p>
         </div>
-        <div>
-          <p className="text-lg">WPM</p>
-          <p className="text-2xl font-bold">{wpm}</p>
-        </div>
-        <div>
-          <p className="text-lg">Accuracy</p>
-          <p className="text-2xl font-bold">{accuracy}%</p>
-        </div>
+      <div className="text-center">
+        <p className="text-lg font-medium text-gray-300">WPM</p>
+        <p className="text-3xl font-bold text-green-400">{wpm}</p>
       </div>
+      <div className="text-center">
+        <p className="text-lg font-medium text-gray-300">Accuracy</p>
+        <p className="text-3xl font-bold text-blue-400">{accuracy}%</p>
+      </div>
+    </div>
 
       {/* Typing Text */}
       <div className="w-full max-w-2xl p-4 mb-6 bg-gray-800 border border-blue-500 rounded-md">
