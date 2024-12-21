@@ -9,7 +9,7 @@ const Navbar = () => {
     <nav className="text-white bg-gray-800 ">
       <div className="container flex items-center justify-between px-4 py-3 mx-auto">
         <div className="flex items-center">
-          <div className="text-lg font-bold">Typing Speed</div>
+          <NavLink to="/" className="text-lg font-bold">Typing Speed</NavLink>
         </div>
         <button
           className="text-white md:hidden"
