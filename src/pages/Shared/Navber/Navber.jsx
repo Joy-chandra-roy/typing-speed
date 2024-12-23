@@ -6,7 +6,7 @@ const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <nav className="text-white bg-gray-800 ">
+    <nav className="text-white bg-[#0D6073] ">
       <div className="container flex items-center justify-between px-4 py-3 mx-auto">
         <div className="flex items-center">
           <NavLink to="/" className="text-lg font-bold">Typing Speed</NavLink>
