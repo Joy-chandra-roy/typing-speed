@@ -9,6 +9,12 @@ import Games from "../pages/Home/Games/Games";
 import Blog from "../pages/Home/Blog/Blog";
 import SinIN from "../pages/Home/SinIN/SinIN";
 import SinUP from "../pages/Home/SinUP/SinUP";
+import Tricky from "../pages/Home/Tricky/Tricky";
+import Practice from "../pages/Home/Practice/Practice";
+import Certificate from "../pages/Home/Certificate/Certificate";
+import Benchmark from "../pages/Home/Benchmark/Benchmark";
+import B_Blitz from "../pages/Home/B_Blitz/B_Blitz";
+
 
   const router = createBrowserRouter([
     {
@@ -42,6 +48,26 @@ import SinUP from "../pages/Home/SinUP/SinUP";
         {
           path:"/sinUP",
           element: <SinUP/>
+        },
+        {
+          path:"/tricky",
+          element: <Tricky/>
+        },
+        {
+          path:"/practice",
+          element: <Practice/>
+        },
+        {
+          path:"/certificate",
+          element: <Certificate/>
+        },
+        {
+          path:"/benchmark",
+          element: <Benchmark/>
+        },
+        {
+          path:"/b_blitz",
+          element: <B_Blitz/>
         }
       ]
     },

@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { NavLink } from "react-router-dom";
+import {Link, NavLink } from "react-router-dom";
 
 const Home= () => {
   const [darkMode, setDarkMode] = useState(false);
@@ -14,15 +14,15 @@ const Home= () => {
       <aside className="flex flex-col w-64 p-4 bg-white-100 dark:text-black ">
         <NavLink to="/" className={`mb-6 text-2xl font-bold  ${darkMode? "text-white":"text-[#0D6073]"}`}>TypingTest.com</NavLink>
         <nav>
-          <ul className="space-y-4">
-            <li className="w-40 px-3 py-1 text-center cursor-pointer hover:bg-[#0D6073] rounded-xl hover:text-white">Typing Test</li>
-            <li className="w-40 px-3 py-1 text-center cursor-pointer hover:bg-[#0D6073] rounded-xl hover:text-white">Typing Practice</li>
-            <li className="w-40 px-3 py-1 text-center cursor-pointer hover:bg-[#0D6073] rounded-xl hover:text-white">Typing Lessons</li>
-            <li className="w-40 px-3 py-1 text-center cursor-pointer hover:bg-[#0D6073] rounded-xl hover:text-white">Tricky Keys</li>
-            <li className="w-40 px-3 py-1 text-center cursor-pointer hover:bg-[#0D6073] rounded-xl hover:text-white">Typing Benchmark</li>
-            <li className="w-40 px-2 py-1 text-center cursor-pointer hover:bg-[#0D6073] rounded-xl hover:text-white">Typing Certification</li>
-            <li className="w-40 px-3 py-1 text-center cursor-pointer hover:bg-[#0D6073] rounded-xl hover:text-white">Bigram Blitz</li>
-            <li className="w-40 px-3 py-1 text-center cursor-pointer hover:bg-[#0D6073] rounded-xl hover:text-white">Typing Games</li>
+          <ul className="flex flex-col space-y-4">
+            <Link to="/test" className="w-40 px-3 py-1 text-center cursor-pointer hover:bg-[#0D6073] rounded-xl hover:text-white text-[#1f8ea6]">Typing Test</Link>
+            <Link to="/practice" className="w-40 px-3 py-1 text-center cursor-pointer hover:bg-[#0D6073] rounded-xl hover:text-white text-[#1f8ea6]">Typing Practice</Link>
+            <Link to="/typingLesson" className="w-40 px-3 py-1 text-center cursor-pointer hover:bg-[#0D6073] rounded-xl hover:text-white text-[#1f8ea6]">Typing Lessons</Link>
+            <Link to="/tricky" className="w-40 px-3 py-1 text-center cursor-pointer hover:bg-[#0D6073] rounded-xl hover:text-white text-[#1f8ea6]">Tricky Keys</Link>
+            <Link to="/benchmark" className="w-40 px-3 py-1 text-center cursor-pointer hover:bg-[#0D6073] rounded-xl hover:text-white text-[#1f8ea6]">Typing Benchmark</Link>
+            <Link to="/certificate" className="w-40 px-2 py-1 text-center cursor-pointer hover:bg-[#0D6073] rounded-xl hover:text-white text-[#1f8ea6]">Typing Certification</Link>
+            <Link to="/b_blitz" className="w-40 px-3 py-1 text-center cursor-pointer hover:bg-[#0D6073] rounded-xl hover:text-white text-[#1f8ea6]">Bigram Blitz</Link>
+            <Link to="/games" className="w-40 px-3 py-1 text-center cursor-pointer hover:bg-[#0D6073] rounded-xl hover:text-white text-[#1f8ea6]">Typing Games</Link>
           </ul>
         </nav>
         <div className="pt-4 mt-auto border-t border-gray-300 dark:border-gray-700">
