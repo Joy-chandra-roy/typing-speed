@@ -185,7 +185,7 @@ const Test= () => {
           onClick={startTest}
           className="px-6 py-2 text-white bg-blue-600 rounded-md hover:bg-blue-700"
         >
-          Start
+          Go
         </button>
         <button
           onClick={resetTest}

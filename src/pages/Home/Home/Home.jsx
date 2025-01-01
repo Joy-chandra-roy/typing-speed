@@ -49,6 +49,8 @@ const Home= () => {
         <h2 className="mb-2 text-3xl font-bold text-[#0D6073]">Check your typing skills in a minute</h2>
         <p className="mb-8 text-lg text-center text-[#1f8ea6]">Type away to join 150+ million test takers!</p>
 
+
+
         {/* Test Selection */}
         <div className="mb-6 space-y-4 ">
           <div className="flex flex-col items-center">
@@ -87,6 +89,9 @@ const Home= () => {
             </select>
           </div>
         </div>
+
+
+        
 
         {/* Buttons */}
         <NavLink to="/test" className="px-6 py-2 mb-4 text-white transition duration-300 bg-[#0D6073] shadow-md rounded-3xl">
