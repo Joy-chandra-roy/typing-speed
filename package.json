@@ -1,9 +1,13 @@
 {
   "name": "typeproject",
+<<<<<<< HEAD
   "homepage": "https://typespeed.com/",
+=======
+  "homepage": "https://typespeed.com",
+>>>>>>> a8c2e872b88329aeeb02bc26805bbd0feea5d69d
   "private": true,
   "version": "0.0.0",
-  "type": "module",
+  "type": "module",  
   "scripts": {
     "dev": "vite",
     "build": "vite build",

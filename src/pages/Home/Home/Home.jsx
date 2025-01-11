@@ -95,6 +95,7 @@ const Home= () => {
 
         
 
+<<<<<<< HEAD
         {/* Buttons update working  */}
       
         <Link
@@ -111,6 +112,12 @@ const Home= () => {
         Start Test
         </Link>
 
+=======
+        {/* Buttons */}
+        <NavLink to="/test" className="px-6 py-2 mb-4 text-white transition duration-300 bg-[#0D6073] shadow-md rounded-3xl">
+          Start Test
+        </NavLink>
+>>>>>>> a8c2e872b88329aeeb02bc26805bbd0feea5d69d
         <div className="pt-4 mt-10 border-t border-gray-300 dark:border-gray-700">
           <label className="flex items-center space-x-2 cursor-pointer">
             <input
