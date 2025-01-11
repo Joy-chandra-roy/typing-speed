@@ -93,7 +93,7 @@ const SinIN = () => {
         <div className="mt-6 text-sm text-center text-gray-600">
           <p>
             Don't have an account?{" "}
-            <a href="/signup" className="text-blue-500 hover:underline">
+            <a href="/register" className="text-blue-500 hover:underline">
               Sign Up
             </a>
           </p>

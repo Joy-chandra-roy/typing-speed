@@ -1,6 +1,6 @@
 import {
-    createBrowserRouter,
-  } from "react-router-dom";
+  createBrowserRouter,
+} from "react-router-dom";
 import Main from "../layout/Main";
 import Home from "../pages/Home/Home/Home";
 import Test from "../pages/Home/Test/Test";
@@ -14,63 +14,68 @@ import Practice from "../pages/Home/Practice/Practice";
 import Certificate from "../pages/Home/Certificate/Certificate";
 import Benchmark from "../pages/Home/Benchmark/Benchmark";
 import B_Blitz from "../pages/Home/B_Blitz/B_Blitz";
+import FAQ from "../components/Home/FAQ";
 
 
-  const router = createBrowserRouter([
-    {
-      path: "/",
-      element:<Main/> ,
-      children:[
-        {
-            path:"/",
-            element:<Home/>
-        },
-        {
-          path:"/test",
-          element:<Test/>
-        },
-        {
-          path:"/typingLesson",
-          element:<TypingLesson/>
-        },
-        {
-          path:"/games",
-          element:<Games/>
-        },
-        {
-          path:"/blog",
-          element:<Blog/>
-        },
-        {
-          path:"/sinIN",
-          element:<SinIN/>
-        },
-        {
-          path:"/sinUP",
-          element: <SinUP/>
-        },
-        {
-          path:"/tricky",
-          element: <Tricky/>
-        },
-        {
-          path:"/practice",
-          element: <Practice/>
-        },
-        {
-          path:"/certificate",
-          element: <Certificate/>
-        },
-        {
-          path:"/benchmark",
-          element: <Benchmark/>
-        },
-        {
-          path:"/b_blitz",
-          element: <B_Blitz/>
-        }
-      ]
-    },
-  ]);
+const router = createBrowserRouter([
+  {
+    path: "/",
+    element:<Main/> ,
+    children:[
+      {
+          path:"/",
+          element:<Home/>
+      },
+      {
+        path:"/test",
+        element:<Test/>
+      },
+      {
+        path:"/typingLesson",
+        element:<TypingLesson/>
+      },
+      {
+        path:"/games",
+        element:<Games/>
+      },
+      {
+        path:"/blog",
+        element:<Blog/>
+      },
+      {
+        path:"/login",
+        element:<SinIN/>
+      },
+      {
+        path:"/register",
+        element: <SinUP/>
+      },
+      {
+        path:"/tricky",
+        element: <Tricky/>
+      },
+      {
+        path:"/practice",
+        element: <Practice/>
+      },
+      {
+        path:"/certificate",
+        element: <Certificate/>
+      },
+      {
+        path:"/benchmark",
+        element: <Benchmark/>
+      },
+      {
+        path:"/b_blitz",
+        element: <B_Blitz/>
+      },
+      {
+        path: "/faq",
+        element:<FAQ/>
+      }
+    ]
+  },
+]);
 
-  export default router;
+export default router;

@@ -1,16 +1,41 @@
-
-
 import  { useState, useEffect } from "react";
 
 const Test= () => {
+
+
+  const [testDuration, setTestDuration] = useState();
+  // console.log(testDuration,"new time");
+  
+  const [textType, setTextType] = useState("");
+  // console.log(textType);
+
+  useEffect(() => {
+    // Retrieve saved values from local storage
+    const savedDuration = localStorage.getItem("testDuration");
+    // console.log(savedDuration,"select time");
+    
+    const savedTextType = localStorage.getItem("textType");
+
+    if (savedDuration) {
+      const durationInSeconds = Number(savedDuration) * 60; 
+      setTestDuration(durationInSeconds)
+    };
+
+    if (savedTextType) setTextType(savedTextType);},[]);
+ 
+
+
+
+  // ending update code
   const [difficulty, setDifficulty] = useState("Easy");
-  const [timeLimit, setTimeLimit] = useState(60); // Default time: 1 minute
+  const [timeLimit, setTimeLimit] = useState('60'); // Default time: 1 minute
   const [generatedText, setGeneratedText] = useState("");
   const [inputText, setInputText] = useState("");
   const [timeLeft, setTimeLeft] = useState(0);
   const [testStarted, setTestStarted] = useState(false);
   const [wpm, setWpm] = useState(0);
   const [accuracy, setAccuracy] = useState(100);
+  // eslint-disable-next-line no-unused-vars
   const [errors, setErrors] = useState(0);
 
   const sampleTexts = {
@@ -28,7 +53,43 @@ const Test= () => {
       "Advanced typing requires focus, practice, and precision.",
       "Pseudocode often serves as the foundation of logical thinking.",
       "Debugging is an essential skill for software developers.",
-    ],
+    ],   
+    Benchmark: [
+      "Advanced typing requires focus, practice, and precision.",
+      "Pseudocode often serves as the foundation of logical thinking.",
+      "Debugging is an essential skill for software developers.",
+    ],   
+    Certificate: [
+      "Advanced typing requires focus, practice, and precision.",
+      "Pseudocode often serves as the foundation of logical thinking.",
+      "Debugging is an essential skill for software developers.",
+    ],   
+    Tricky: [
+      "Advanced typing requires focus, practice, and precision.",
+      "Pseudocode often serves as the foundation of logical thinking.",
+      "Debugging is an essential skill for software developers.",
+    ],   
+    Blind: [
+      "Advanced typing requires focus, practice, and precision.",
+      "Pseudocode often serves as the foundation of logical thinking.",
+      "Debugging is an essential skill for software developers.",
+    ],   
+    Story: [
+      "Advanced typing requires focus, practice, and precision.",
+      "Pseudocode often serves as the foundation of logical thinking.",
+      "Debugging is an essential skill for software developers.",
+    ],   
+    Themed: [
+      "Advanced typing requires focus, practice, and precision.",
+      "Pseudocode often serves as the foundation of logical thinking.",
+      "Debugging is an essential skill for software developers.",
+    ],   
+    Professional: [
+      "Advanced typing requires focus, practice, and precision.",
+      "Pseudocode often serves as the foundation of logical thinking.",
+      "Debugging is an essential skill for software developers.",
+    ],   
+      
   };
 
   // Generate random text based on difficulty
@@ -40,6 +101,7 @@ const Test= () => {
   // Set the text whenever the difficulty changes
   useEffect(() => {
     setGeneratedText(getRandomText());
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [difficulty]);
 
   // Timer functionality
@@ -51,6 +113,7 @@ const Test= () => {
       finishTest();
     }
     return () => clearTimeout(timer);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [testStarted, timeLeft]);
 
   // Start the test
@@ -113,34 +176,31 @@ const Test= () => {
 
       {/* Difficulty Dropdown */}
       <div className="flex gap-4 mb-6">
-        <select
+        <div
           value={difficulty}
           onChange={(e) => setDifficulty(e.target.value)}
-          className="w-48 px-4 py-2 text-black rounded-2xl bg-white-700"
+          className="w-48 px-4 py-2 text-black bg-white border-none bg-white-700"
         >
-          <option value="Easy">Easy</option>
-          <option value="Medium">Medium</option>
-          <option value="Hard">Hard</option>
-        </select>
+          <option value={textType}> Type: {textType}</option>
+        </div>
 
         {/* Custom Time Dropdown */}
-        <select
+       <div
           value={timeLimit}
           onChange={(e) => setTimeLimit(Number(e.target.value))}
-          className="w-48 px-4 py-2 text-black rounded-2xl bg-white-700"
+          className="w-48 px-4 py-2 text-black bg-white border-none bg-white-700"
         >
-          <option value={30}>30 Seconds</option>
-          <option value={60}>1 Minute</option>
-          <option value={90}>1 Minute 30 Seconds</option>
-          <option value={120}>2 Minutes</option>
-        </select>
+          <p value={testDuration}> {testDuration} </p>
+        </div> 
+
+     
       </div>
 
       {/* Timer and Stats */}
       <div className="flex justify-around w-full max-w-md p-4 mb-6 bg-gray-700 rounded-lg shadow-lg">
         <div className="text-center">
           <p className="text-lg font-medium text-gray-300">Time Left</p>
-          <p className="text-3xl font-bold text-yellow-400">{timeLeft}s</p>
+          <p className="text-3xl font-bold text-yellow-400">{timeLimit}s</p>
         </div>
       <div className="text-center">
         <p className="text-lg font-medium text-gray-300">WPM</p>
@@ -185,7 +245,7 @@ const Test= () => {
           onClick={startTest}
           className="px-6 py-2 text-white bg-blue-600 rounded-md hover:bg-blue-700"
         >
-          Start
+          Go
         </button>
         <button
           onClick={resetTest}
@@ -198,4 +258,4 @@ const Test= () => {
   );
 };
 
-export default Test;
+export default Test; 
